@@ -24,13 +24,21 @@ namespace DBPractice.Models
          public string id { get; set; }
          public string address { get; set; }
     }
-    public class AddResponse
+
+    public class Response
     {
         public int Status { get; set; }
     }
-
-    public class DeleteResponse
+    public class AddResponse:Response
     {
-        public int Status { get; set; }
+    }
+
+    public class DeleteResponse:Response
+    {
+    }
+
+    public class UpdateResponse : Response
+    {
+        
     }
 }

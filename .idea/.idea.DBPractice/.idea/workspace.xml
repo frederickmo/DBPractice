@@ -4,18 +4,14 @@
     <projectFile>DBPractice.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/FacilityController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/FacilityModel.cs" afterDir="false" />
+    <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="2021年7月2日8:30">
+      <change afterPath="$PROJECT_DIR$/Models/TrashModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/FacilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FacilityController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBPractice.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DBPractice.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/ConfigModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ConfigModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/FacilityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/FacilityModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/UserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,19 +31,21 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2EF6561A-D0E9-4041-94EF-EDAA489D28EE/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Volumes/My Passport/DBPractice/DBPractice/Controllers/FacilityController.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Program.cs" />
       <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
-      <option value="$PROJECT_DIR$/Models/UserModel.cs" />
       <option value="$PROJECT_DIR$/Models/Facility.cs" />
       <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
-      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
-      <option value="$PROJECT_DIR$/Startup.cs" />
       <option value="$PROJECT_DIR$/Models/FacilityModel.cs" />
+      <option value="$PROJECT_DIR$/Models/UserModel.cs" />
+      <option value="$PROJECT_DIR$/Startup.cs" />
+      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
       <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
+      <option value="$PROJECT_DIR$/Models/TrashModel.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uGAxUIaxosK6JlHMxev2nCXZZH" />
@@ -58,7 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34949267" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34975636" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -111,8 +109,16 @@
       <option name="presentableId" value="Default" />
       <updated>1624281801315</updated>
       <workItem from="1624281810215" duration="7714000" />
-      <workItem from="1625211755271" duration="8443000" />
+      <workItem from="1625211755271" duration="11528000" />
     </task>
+    <task id="LOCAL-00001" summary="2021年7月2日8:30">
+      <created>1625228673608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1625228673608</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,5 +140,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="2021年7月2日8:30" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021年7月2日8:30" />
   </component>
 </project>

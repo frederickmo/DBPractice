@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using DBPractice.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DBPractice.Controllers
@@ -19,6 +20,11 @@ namespace DBPractice.Controllers
     [Route("User/[controller]")]
     public class LoginController : Controller
     {
+        private readonly IConfiguration _configuration;
+        public LoginController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         [AllowAnonymous]
         [HttpPost]
         public LoginResponse Login([FromBody] LoginRequest req)
@@ -87,7 +93,7 @@ namespace DBPractice.Controllers
         [HttpPost]
         public UpdateResponse Update([FromBody] UpdateRequest req)
         {
-            var resp = new UpdateResponse {status = Config.TEST};
+            var resp = new UpdateResponse {Status = Config.TEST};
             return resp;
         }
     }

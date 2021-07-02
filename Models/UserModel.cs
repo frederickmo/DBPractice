@@ -79,10 +79,6 @@ namespace DBPractice.Models
         public string token { get; set; }
         public User user { get; set; }
     }
-
-    public class UpdateResponse
-    {
-        public int status { set; get; }
-    }
+    
     
 }
