@@ -4,9 +4,14 @@
     <projectFile>DBPractice.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="2021年7月2日21:17分">
+    <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Controllers/GarbageController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/TransportModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/TrashModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TrashModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/FacilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FacilityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/FacilityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/FacilityModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/UserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +31,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2EF6561A-D0E9-4041-94EF-EDAA489D28EE/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Volumes/My Passport/DBPractice/DBPractice/Controllers/FacilityController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Volumes/My Passport/DBPractice/DBPractice/Controllers/FacilityController.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -36,12 +39,15 @@
       <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
       <option value="$PROJECT_DIR$/Models/Facility.cs" />
       <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
-      <option value="$PROJECT_DIR$/Models/FacilityModel.cs" />
-      <option value="$PROJECT_DIR$/Models/UserModel.cs" />
       <option value="$PROJECT_DIR$/Startup.cs" />
-      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
-      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
       <option value="$PROJECT_DIR$/Models/TrashModel.cs" />
+      <option value="$PROJECT_DIR$/Models/FacilityModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
+      <option value="$PROJECT_DIR$/Controllers/TrashController.cs" />
+      <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/GarbageController.cs" />
+      <option value="$PROJECT_DIR$/Models/UserModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uGAxUIaxosK6JlHMxev2nCXZZH" />
@@ -105,7 +111,8 @@
       <option name="presentableId" value="Default" />
       <updated>1624281801315</updated>
       <workItem from="1624281810215" duration="7714000" />
-      <workItem from="1625211755271" duration="13426000" />
+      <workItem from="1625211755271" duration="13719000" />
+      <workItem from="1625288547033" duration="10359000" />
     </task>
     <task id="LOCAL-00001" summary="2021年7月2日8:30">
       <created>1625228673608</created>
@@ -121,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625231846722</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="2021年7月2日21点49">
+      <created>1625233804336</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625233804336</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +159,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="2021年7月2日8:30" />
     <MESSAGE value="2021年7月2日21:17分" />
-    <option name="LAST_COMMIT_MESSAGE" value="2021年7月2日21:17分" />
+    <MESSAGE value="2021年7月2日21点49" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021年7月2日21点49" />
   </component>
 </project>

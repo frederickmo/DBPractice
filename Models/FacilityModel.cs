@@ -27,7 +27,7 @@ namespace DBPractice.Models
 
     public class Response
     {
-        public int Status { get; set; }
+        public int status { get; set; }
     }
     public class AddResponse:Response
     {

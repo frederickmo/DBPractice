@@ -24,7 +24,7 @@ namespace DBPractice.Models
         public string address { get; set; }
     }
 
-    public class TransportPersonnel : User
+    public class Carrier : User
     {
         
     }
@@ -58,10 +58,10 @@ namespace DBPractice.Models
         // GarbageMan.credit必须为0
         public GarbageMan garbageman { get; set; } 
     }
-    public class TPRegisterRequest
+    public class CRRegisterRequest
     {
         // GarbageMan.credit必须为0
-        public TransportPersonnel transportpersonnel { get; set; } 
+        public Carrier transportpersonnel { get; set; } 
     }
     public class SSRegisterRequest
     {
@@ -72,13 +72,7 @@ namespace DBPractice.Models
     {
         public int status { get; set; }
     }
-
-    public class UpdateRequest
-    {
-        // user.credit必须为0
-        public string token { get; set; }
-        public User user { get; set; }
-    }
+    
     
     
 }

@@ -57,7 +57,8 @@ namespace DBPractice.Controllers
             return jwtToken;
         }
     }
-
+    [ApiController]
+    [Route("User/[controller]")]
     public class RegisterController : Controller 
     {
         [HttpPost("GarbageMan")] 
@@ -73,7 +74,7 @@ namespace DBPractice.Controllers
             return resp;
         }
         [HttpPost("TransportPersonnel")] 
-        public RegisterResponse Register([FromBody] TPRegisterRequest req)
+        public RegisterResponse Register([FromBody] CRRegisterRequest req)
         {
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
@@ -84,30 +85,97 @@ namespace DBPractice.Controllers
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
         }
+
+        [ApiController]
+        [Route("User/[controller]")]
+        public class UpdateController : Controller
+        {
+            [HttpPost("GarbageMan")]
+            public UpdateResponse Register([FromBody] GMRegisterRequest req)
+            {
+                var resp = new UpdateResponse {status = Config.TEST};
+                return resp;
+            }
+
+            [HttpPost("Watcher")]
+            public UpdateResponse Register([FromBody] WCRegisterRequest req)
+            {
+                var resp = new UpdateResponse {status = Config.TEST};
+                return resp;
+            }
+
+            [HttpPost("TransportPersonnel")]
+            public UpdateResponse Register([FromBody] CRRegisterRequest req)
+            {
+                var resp = new UpdateResponse {status = Config.TEST};
+                return resp;
+            }
+
+            [HttpPost("StationStaff")]
+            public UpdateResponse Register([FromBody] SSRegisterRequest req)
+            {
+                var resp = new UpdateResponse {status = Config.TEST};
+                return resp;
+            }
+        }
+
     }
-    
     [ApiController]
     [Route("User/[controller]")]
     public class UpdateController : Controller 
     {
-        [HttpPost]
-        public UpdateResponse Update([FromBody] UpdateRequest req)
+        [HttpPost("GarbageMan")] 
+        public Response Update([FromBody] GarbageMan req)
         {
-            var resp = new UpdateResponse {Status = Config.TEST};
+            var resp = new Response {status = Config.TEST};
+            return resp;
+        }
+        [HttpPost("Watcher")] 
+        public Response Update([FromBody] Watcher req)
+        {
+            var resp = new Response {status = Config.TEST};
+            return resp;
+        }
+        [HttpPost("TransportPersonnel")] 
+        public Response Update([FromBody] Carrier req)
+        {
+            var resp = new Response {status = Config.TEST};
+            return resp;
+        }
+
+        [HttpPost("StationStaff")]
+        public Response Update([FromBody] StationStaff req)
+        {
+            var resp = new Response {status = Config.TEST};
             return resp;
         }
     }
-        
-    [ApiController]
-    [Route("User")]
-    public class UserController : Controller 
-    {
-        [HttpGet]
-        public User GetUser(string token)
-        {
-            var user = new User();
-            
-            return user;
-        }
-    }
+    public class GetInformationController : Controller                    
+    {                                                             
+        [HttpGet("GarbageMan")]                                  
+        public GarbageMan Get([FromBody] GarbageMan req)       
+        {                                                         
+            var resp = new GarbageMan();       
+            return resp;                                          
+        }                                                         
+        [HttpGet("Watcher")]                                     
+        public Watcher Get([FromBody] Watcher req)          
+        {                                                         
+            var resp = new Watcher();       
+            return resp;                                          
+        }                                                         
+        [HttpGet("TransportPersonnel")]                          
+        public Carrier Get([FromBody] Carrier req)          
+        {                                                         
+            var resp = new Carrier();       
+            return resp;                                          
+        }                                                         
+                                                              
+        [HttpGet("StationStaff")]                                
+        public StationStaff Get([FromBody] StationStaff req)     
+        {                                                         
+            var resp = new StationStaff();       
+            return resp;                                          
+        }                                                         
+    }                                                             
 }

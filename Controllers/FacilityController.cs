@@ -16,21 +16,21 @@ namespace DBPractice.Controllers
         [HttpPost]
         public AddResponse Add([FromBody] TrashCan req)
         {
-            var resp = new AddResponse {Status = Config.TEST};
+            var resp = new AddResponse {status = Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public DeleteResponse Delete([FromBody] TrashCan req)
         {
-            var resp = new DeleteResponse { Status=Config.TEST};
+            var resp = new DeleteResponse { status=Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public UpdateResponse Update([FromBody] TrashCan req)
         {
-            var resp = new UpdateResponse{Status = Config.TEST};
+            var resp = new UpdateResponse{status = Config.TEST};
             return resp;
         }
 
@@ -54,21 +54,21 @@ namespace DBPractice.Controllers
         [HttpPost]
         public AddResponse Add([FromBody] BinSite req)
         {
-            var resp = new AddResponse {Status = Config.TEST};
+            var resp = new AddResponse {status = Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public DeleteResponse Delete([FromBody] BinSite req)
         {
-            var resp = new DeleteResponse { Status=Config.TEST};
+            var resp = new DeleteResponse { status=Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public UpdateResponse Update([FromBody] BinSite req)
         {
-            var resp = new UpdateResponse{Status = Config.TEST};
+            var resp = new UpdateResponse{status = Config.TEST};
             return resp;
         }
 
@@ -91,21 +91,21 @@ namespace DBPractice.Controllers
         [HttpPost]
         public AddResponse Add([FromBody] Truck req)
         {
-            var resp = new AddResponse {Status = Config.TEST};
+            var resp = new AddResponse {status = Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public DeleteResponse Delete([FromBody] Truck req)
         {
-            var resp = new DeleteResponse { Status=Config.TEST};
+            var resp = new DeleteResponse { status=Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public UpdateResponse Update([FromBody] Truck req)
         {
-            var resp = new UpdateResponse{Status = Config.TEST};
+            var resp = new UpdateResponse{status = Config.TEST};
             return resp;
         }
 
@@ -128,21 +128,21 @@ namespace DBPractice.Controllers
         [HttpPost]
         public AddResponse Add([FromBody] Truck req)
         {
-            var resp = new AddResponse {Status = Config.TEST};
+            var resp = new AddResponse {status = Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public DeleteResponse Delete([FromBody] Truck req)
         {
-            var resp = new DeleteResponse { Status=Config.TEST};
+            var resp = new DeleteResponse { status=Config.TEST};
             return resp;
         }
 
         [HttpPost]
         public UpdateResponse Update([FromBody] Truck req)
         {
-            var resp = new UpdateResponse{Status = Config.TEST};
+            var resp = new UpdateResponse{status = Config.TEST};
             return resp;
         }
 
