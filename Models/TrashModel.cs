@@ -32,5 +32,11 @@ namespace DBPractice.Models
         public string truckid { get; set; }
         public DateTime endtime { get; set; }
     }
+    public class Record
+    {
+        public string username { get; set; }
+        public Garbage garbage { get; set; }
+    }
+
     
 }

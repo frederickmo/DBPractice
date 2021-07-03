@@ -43,9 +43,23 @@ namespace DBPractice.Controllers
             var resp = new UpdateResponse {status = Config.TEST};
             return resp;
         }
-
+        /*
+         * 这个我也不清楚干嘛，但反正要有一个get...XS
+         */
         [HttpGet]
         public List<Garbage> Get()
+        {
+            var resp = new List<Garbage>();
+            return resp;
+        }
+
+        /*
+         * type 表示请求记录的类型
+         * 0        违规的
+         * 1        成功投递的
+         */
+        [HttpGet]
+        public List<Garbage> GetRecords(int type)
         {
             var resp = new List<Garbage>();
             return resp;
@@ -105,6 +119,7 @@ namespace DBPractice.Controllers
             var resp = new List<TransportRequest>();
             return resp;
         }
+        
         
     }
 }
