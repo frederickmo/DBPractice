@@ -30,9 +30,5 @@ namespace DBPractice.Models
     {
         public string pid { get; set; }
     }
-
-    public class BadRecord
-    {
-        
-    }
+    
 }

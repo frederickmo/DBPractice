@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DBPractice.Controllers
 {
+    // [Authorize(Roles="Adminstrator")]
     [ApiController, Route("Facility/[controller]/[action]")]
     public class TrashCanController : Controller
     {
@@ -40,6 +41,7 @@ namespace DBPractice.Controllers
             var resp = new TrashCan();
             return resp;
         }
+        
         [HttpGet]
         public List<TrashCan> GetAll()
         {

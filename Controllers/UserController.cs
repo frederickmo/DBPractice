@@ -12,6 +12,7 @@ using DBPractice.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DBPractice.Controllers
@@ -30,7 +31,12 @@ namespace DBPractice.Controllers
         public LoginResponse Login([FromBody] LoginRequest req)
         {
             var resp = new LoginResponse {token = "", role = "", status = Config.TEST};
-
+            if (true)
+            {
+                resp.status = Config.SUCCESS;
+                resp.token = GenerateJWT(req.username, "administrator");
+            }
+            
             return resp;
         }
 
@@ -41,6 +47,7 @@ namespace DBPractice.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, username),
                 new Claim(ClaimTypes.Role, role),
+                
             };
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
             var signingCredentials = new SigningCredentials(secretKey, algorithm);
@@ -157,7 +164,8 @@ namespace DBPractice.Controllers
         {                                                         
             var resp = new GarbageMan();       
             return resp;                                          
-        }                                                         
+        }
+
         [HttpGet("Watcher")]                                     
         public Watcher Get([FromBody] Watcher req)          
         {                                                         

@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/GarbageController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/TransportModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/FacilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FacilityController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/FacilityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/FacilityModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/UserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/TransportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TransportModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +30,24 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2EF6561A-D0E9-4041-94EF-EDAA489D28EE/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A9771B1B-9028-4496-853F-BBE4CEDF5E2A/3/SwaggerMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Program.cs" />
-      <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
       <option value="$PROJECT_DIR$/Models/Facility.cs" />
-      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
-      <option value="$PROJECT_DIR$/Startup.cs" />
       <option value="$PROJECT_DIR$/Models/TrashModel.cs" />
       <option value="$PROJECT_DIR$/Models/FacilityModel.cs" />
-      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
       <option value="$PROJECT_DIR$/Controllers/TrashController.cs" />
-      <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
       <option value="$PROJECT_DIR$/Controllers/GarbageController.cs" />
       <option value="$PROJECT_DIR$/Models/UserModel.cs" />
+      <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
+      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
+      <option value="$PROJECT_DIR$/Startup.cs" />
       <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
+      <option value="$PROJECT_DIR$/appsettings.json" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uGAxUIaxosK6JlHMxev2nCXZZH" />
@@ -112,7 +112,8 @@
       <updated>1624281801315</updated>
       <workItem from="1624281810215" duration="7714000" />
       <workItem from="1625211755271" duration="13719000" />
-      <workItem from="1625288547033" duration="10359000" />
+      <workItem from="1625288547033" duration="10504000" />
+      <workItem from="1625313287742" duration="4033000" />
     </task>
     <task id="LOCAL-00001" summary="2021年7月2日8:30">
       <created>1625228673608</created>
@@ -135,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625233804336</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="2021年7月3日16:33">
+      <created>1625301231782</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625301231782</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +168,26 @@
     <MESSAGE value="2021年7月2日8:30" />
     <MESSAGE value="2021年7月2日21:17分" />
     <MESSAGE value="2021年7月2日21点49" />
-    <option name="LAST_COMMIT_MESSAGE" value="2021年7月2日21点49" />
+    <MESSAGE value="2021年7月3日16:33" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021年7月3日16:33" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/UserController.cs</url>
+          <line>53</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/UserController.cs" initialLine="53" containingFunctionPresentation="method 'GenerateJWT'">
+            <startOffsets>
+              <option value="1791" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2115" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
