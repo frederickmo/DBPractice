@@ -63,7 +63,7 @@ namespace DBPractice
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

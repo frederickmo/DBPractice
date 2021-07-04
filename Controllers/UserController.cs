@@ -45,9 +45,9 @@ namespace DBPractice.Controllers
             var algorithm = SecurityAlgorithms.HmacSha256;
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, username),
+                //new Claim(JwtRegisteredClaimNames.Sub, username),
                 new Claim(ClaimTypes.Role, role),
-                
+                new Claim(ClaimTypes.Name,username),
             };
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
             var signingCredentials = new SigningCredentials(secretKey, algorithm);
@@ -157,6 +157,8 @@ namespace DBPractice.Controllers
             return resp;
         }
     }
+    [ApiController]
+    [Route("User/[controller]")]
     public class GetInformationController : Controller                    
     {                                                             
         [HttpGet("GarbageMan")]                                  
@@ -184,6 +186,16 @@ namespace DBPractice.Controllers
         {                                                         
             var resp = new StationStaff();       
             return resp;                                          
-        }                                                         
+        }
+        /*
+         * 下面就是一个鉴权并获取当前用户信息的实例
+         */
+        [Authorize(Roles="administrator")]//只允许administraotr进来
+        [HttpGet("Test")]
+        public string test()
+        {
+            if (Response.HttpContext.User.Identity != null) return Response.HttpContext.User.Identity.Name;//Response.HttpContext.User.Identity.Name 对应了你的claim里的东西。
+            return "NotFound";
+        }
     }                                                             
 }
