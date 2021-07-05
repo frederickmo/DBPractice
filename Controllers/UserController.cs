@@ -17,6 +17,10 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DBPractice.Controllers
 {
+    /// <summary>
+    /// 登录
+    /// 返回JWT token
+    /// </summary>
     [ApiController]
     [Route("User/[controller]")]
     public class LoginController : Controller
@@ -64,60 +68,102 @@ namespace DBPractice.Controllers
             return jwtToken;
         }
     }
+    /// <summary>
+    /// 注册
+    /// </summary>
     [ApiController]
     [Route("User/[controller]")]
     public class RegisterController : Controller 
     {
+        /// <summary>
+        /// 垃圾投递者的注册
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("GarbageMan")] 
         public RegisterResponse Register([FromBody] GMRegisterRequest req)
         {
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
         }
+        /// <summary>
+        /// 垃圾站检查员注册，注意鉴权
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("Watcher")] 
         public RegisterResponse Register([FromBody] WCRegisterRequest req)
         {
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
         }
-        [HttpPost("TransportPersonnel")] 
+        /// <summary>
+        /// 运输员注册，注意鉴权
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("Carrier")] 
         public RegisterResponse Register([FromBody] CRRegisterRequest req)
         {
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
         }
+        /// <summary>
+        /// 垃圾处理站员工录入
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("StationStaff")] 
         public RegisterResponse Register([FromBody] SSRegisterRequest req)
         {
             var resp = new RegisterResponse {status = Config.TEST};
             return resp;
         }
-
+        /// <summary>
+        /// 用户属性更新
+        /// </summary>
         [ApiController]
         [Route("User/[controller]")]
         public class UpdateController : Controller
         {
+            /// <summary>
+            /// 垃圾投递人状态更新
+            /// </summary>
+            /// <param name="req"></param>
+            /// <returns></returns>
             [HttpPost("GarbageMan")]
             public UpdateResponse Register([FromBody] GMRegisterRequest req)
             {
                 var resp = new UpdateResponse {status = Config.TEST};
                 return resp;
             }
-
+            /// <summary>
+            /// 垃圾站监察员状态更新
+            /// </summary>
+            /// <param name="req"></param>
+            /// <returns></returns>
             [HttpPost("Watcher")]
             public UpdateResponse Register([FromBody] WCRegisterRequest req)
             {
                 var resp = new UpdateResponse {status = Config.TEST};
                 return resp;
             }
-
-            [HttpPost("TransportPersonnel")]
+            /// <summary>
+            /// 运输员的状态更新
+            /// </summary>
+            /// <param name="req"></param>
+            /// <returns></returns>
+            [HttpPost("Carrier")]
             public UpdateResponse Register([FromBody] CRRegisterRequest req)
             {
                 var resp = new UpdateResponse {status = Config.TEST};
                 return resp;
             }
-
+            /// <summary>
+            /// 垃圾处理站员工的更新
+            /// </summary>
+            /// <param name="req"></param>
+            /// <returns></returns>
             [HttpPost("StationStaff")]
             public UpdateResponse Register([FromBody] SSRegisterRequest req)
             {
@@ -127,62 +173,101 @@ namespace DBPractice.Controllers
         }
 
     }
+    /// <summary>
+    /// 用户注销
+    /// </summary>
     [ApiController]
     [Route("User/[controller]")]
-    public class UpdateController : Controller 
+    public class DeleteController : Controller 
     {
+        /// <summary>
+        /// 注销垃圾投递人员
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("GarbageMan")] 
-        public Response Update([FromBody] GarbageMan req)
+        public Response Delete([FromBody] GarbageMan req)
         {
             var resp = new Response {status = Config.TEST};
             return resp;
         }
+        /// <summary>
+        /// 注销监察员
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("Watcher")] 
-        public Response Update([FromBody] Watcher req)
+        public Response Delete([FromBody] Watcher req)
         {
             var resp = new Response {status = Config.TEST};
             return resp;
         }
-        [HttpPost("TransportPersonnel")] 
-        public Response Update([FromBody] Carrier req)
+        /// <summary>
+        /// 注销运输人员
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("Carrier")] 
+        public Response Delete([FromBody] Carrier req)
         {
             var resp = new Response {status = Config.TEST};
             return resp;
         }
-
+        /// <summary>
+        /// 注销垃圾处理站员工
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("StationStaff")]
-        public Response Update([FromBody] StationStaff req)
+        public Response Delete([FromBody] StationStaff req)
         {
             var resp = new Response {status = Config.TEST};
             return resp;
         }
     }
+    /// <summary>
+    /// 用户信息的获取
+    /// </summary>
     [ApiController]
     [Route("User/[controller]")]
     public class GetInformationController : Controller                    
-    {                                                             
+    {        
+        /// <summary>
+        /// 垃圾投递人员的信息查看
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GarbageMan")]                                  
-        public GarbageMan Get([FromBody] GarbageMan req)       
+        public GarbageMan GetGarbageMan()       
         {                                                         
             var resp = new GarbageMan();       
             return resp;                                          
         }
-
+        /// <summary>
+        /// 监察员信息的查看
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Watcher")]                                     
-        public Watcher Get([FromBody] Watcher req)          
+        public Watcher GetWatcher()          
         {                                                         
             var resp = new Watcher();       
             return resp;                                          
-        }                                                         
-        [HttpGet("TransportPersonnel")]                          
-        public Carrier Get([FromBody] Carrier req)          
+        }   
+        /// <summary>
+        /// 运输人员信息的查看
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Carrier")]                          
+        public Carrier GetCarrier()          
         {                                                         
             var resp = new Carrier();       
             return resp;                                          
         }                                                         
-                                                              
+        /// <summary>
+        /// 垃圾处理站员工信息的查看
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("StationStaff")]                                
-        public StationStaff Get([FromBody] StationStaff req)     
+        public StationStaff GetStationStaff()     
         {                                                         
             var resp = new StationStaff();       
             return resp;                                          
@@ -190,7 +275,11 @@ namespace DBPractice.Controllers
         /*
          * 下面就是一个鉴权并获取当前用户信息的实例
          */
-        [Authorize(Roles="administrator")]//只允许administraotr进来
+        /// <summary>
+        /// 小测试
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles="administrator")]//只允许administrator进来
         [HttpGet("Test")]
         public string test()
         {
