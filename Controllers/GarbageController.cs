@@ -138,6 +138,7 @@ namespace DBPractice.Controllers
             DBConn.CloseConn(conn);
             return resp;
         }
+        
         /// <summary>
         /// 删除对应编号的垃圾
         /// </summary>
@@ -185,10 +186,10 @@ namespace DBPractice.Controllers
             OracleConnection conn = null;
             try
             {
-                conn = DBConn.OpenConn();
+                conn = DBConn.OpenConn();//TO_DATE('2021-09-01 00:00:00','yyyy-mm-dd hh24:mi:ss')
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM garbage " +
-                                        $"WHERE finish_time<='{req:yyyy-MM-dd hh:mm:ss}'";
+                                        $"WHERE CREATE_TIME<=TO_DATE('{req:yyyy-MM-dd hh:mm:ss}','yyyy-mm-dd hh24:mi:ss')";
                 cmd.ExecuteNonQuery();
                 resp.status = Config.SUCCESS;
             }
@@ -201,6 +202,9 @@ namespace DBPractice.Controllers
             return resp;
         }
 
+        /// <summary>
+        /// 一个垃圾运输的声明周期 状态说明：0是已经申请，1是已入桶，2是运输中，3是到达处理站
+        /// </summary>
         public struct GarLife
         {
             public string gar_id { get; set; }
@@ -208,8 +212,9 @@ namespace DBPractice.Controllers
             public string dustbin_id { get; set; }
             public string plant_name { get; set; }
             public string user_id { get; set; }
+            public string truck_id { get; set; }
             public DateTime latest_time { get; set; }
-            public int status { get; set; }
+            public int status { get; set; }//0是已经申请，1是已入桶，2是运输中，3是到达处理站
         }
         /// <summary>
         /// 以垃圾编号获取某一个垃圾投递的记录
@@ -219,24 +224,49 @@ namespace DBPractice.Controllers
         [Authorize(Roles = "Administrator")]
         public GarLife Get(string req)
         {
-            var resp = new GarLife();
+            var resp = new GarLife {status = Config.FAIL};
             OracleConnection conn = null;
             try
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "from GARBAGE NATURAL join THROW " +
-                                 $"WHERE gar_id='{req}'"; 
+                cmd.CommandText =
+                    "SELECT " +
+                    "USER_ID,GARBAGE.GAR_ID,GARBAGE.GAR_TYPE,CREATE_TIME," +//垃圾创建状态截止 3
+                    "THROW.DUSTBIN_ID,THROW_TIME," +//垃圾投放状态截止 5
+                    "GARBAGE.TRANS_ID,TRUCK_ID,START_TIME,END_TIME,TRANSPORT.PLANT_NAME " +//垃圾运输状态截止 8,9
+                    "FROM garbage " +
+                    "LEFT JOIN THROW ON garbage.GAR_ID=THROW.GAR_ID " +
+                    "LEFT JOIN TRANSPORT ON TRANSPORT.TRANS_ID=GARBAGE.TRANS_ID " +
+                    $"WHERE GARBAGE.GAR_ID='{req}'";//按照垃圾编号查找
                 var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                if (reader.Read())
                 {
-                    resp.gar_id = reader.GetString(0);
-                    resp.type = reader.GetString(1);
-                    resp.plant_name = reader.GetString(3);
-                    resp.dustbin_id = reader.GetString(4);
-                    resp.user_id = reader.GetString(5);
-                    resp.finish_time = reader.GetDateTime(6);
+                    resp.user_id = reader.GetString(0);
+                    resp.gar_id = reader.GetString(1);
+                    resp.type = reader.GetString(2);
+                    resp.latest_time = reader.GetDateTime(3);
+                    resp.status = 0;
+                    if (reader.IsDBNull(5) ==false)
+                    {
+                        resp.dustbin_id = reader.GetString(4);
+                        resp.latest_time = reader.GetDateTime(5);
+                        resp.status = 1;
+                    }
+
+                    if (reader.IsDBNull(8) == false)
+                    {
+                        resp.truck_id = reader.GetString(7);
+                        resp.latest_time = reader.GetDateTime(8);
+                        resp.status = 2;
+                    }
+
+                    if (reader.IsDBNull(9) == false)
+                    {
+                        resp.latest_time = reader.GetDateTime(9);
+                        resp.plant_name = reader.GetString(10);
+                        resp.status = 3;
+                    }
                 }
             }
             catch (Exception ex) {Console.WriteLine(ex.Message); }
@@ -250,30 +280,53 @@ namespace DBPractice.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Administrator,GarbageMan")]
-        public List<Garbage> GetAll(string req)
+        public List<GarLife> GetAll(string req)
         {
-            var respList = new List<Garbage>();
+            var respList = new List<GarLife>();
             OracleConnection conn = null;
             try
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "FROM garbage " + $"WHERE user_id ='{req}'" +                               
-                                 $"ORDER BY finish_time DESC";//以时间进行排序 
-                OracleDataReader reader = cmd.ExecuteReader();
+                cmd.CommandText = "SELECT " +
+                                  "USER_ID,GARBAGE.GAR_ID,GARBAGE.GAR_TYPE,CREATE_TIME," +//垃圾创建状态截止 3
+                                  "THROW.DUSTBIN_ID,THROW_TIME," +//垃圾投放状态截止 5
+                                  "GARBAGE.TRANS_ID,TRUCK_ID,START_TIME,END_TIME,TRANSPORT.PLANT_NAME " +//垃圾运输状态截止 8,9
+                                  "FROM garbage " +
+                                  "LEFT JOIN THROW ON garbage.GAR_ID=THROW.GAR_ID " +
+                                  "LEFT JOIN TRANSPORT ON TRANSPORT.TRANS_ID=GARBAGE.TRANS_ID " +
+                                  $"WHERE GARBAGE.USER_ID='{req}'";//按照投递人编号查找
+                var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    var resp = new Garbage
+                    var resp = new GarLife
                     {
-                        gar_id = reader.GetString(0),
-                        type = reader.GetString(1),
-                        gar_result = reader.GetInt32(2),
-                        plant_name = reader.GetString(3),
-                        dustbin_id = reader.GetString(4),
-                        user_id = reader.GetString(5),
-                        finish_time = reader.GetDateTime(6)
+                        user_id = reader.GetString(0),
+                        gar_id = reader.GetString(1),
+                        type = reader.GetString(2),
+                        latest_time = reader.GetDateTime(3),
+                        status = 0
                     };
+                    if (reader.IsDBNull(5) ==false)
+                    {
+                        resp.dustbin_id = reader.GetString(4);
+                        resp.latest_time = reader.GetDateTime(5);
+                        resp.status = 1;
+                    }
+
+                    if (reader.IsDBNull(8) == false)
+                    {
+                        resp.truck_id = reader.GetString(7);
+                        resp.latest_time = reader.GetDateTime(8);
+                        resp.status = 2;
+                    }
+
+                    if (reader.IsDBNull(9) == false)
+                    {
+                        resp.latest_time = reader.GetDateTime(9);
+                        resp.plant_name = reader.GetString(10);
+                        resp.status = 3;
+                    }
                     respList.Add(resp);
                 }
             }
@@ -293,6 +346,7 @@ namespace DBPractice.Controllers
     {
         struct Start
         {
+            public string trans_id { get; set; }
             public string truck_id { get; set; }//垃圾车编号
             public DateTime start_time { get; set; }
             public string dustbin_id { get; set; }

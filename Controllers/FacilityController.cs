@@ -26,7 +26,7 @@ namespace DBPractice.Controllers
     [ApiController, Route("Facility/[controller]/[action]")]
     public class TrashCanController : Controller
     {
-        /// <summary>
+        /// <summary>　　
         /// 垃圾桶的添加
         /// </summary>
         /// <param name="req"></param>
