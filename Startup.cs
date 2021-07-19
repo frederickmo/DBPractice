@@ -14,12 +14,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace DBPractice
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +34,18 @@ namespace DBPractice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+
+                });
+
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -43,10 +59,11 @@ namespace DBPractice
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:SecretKey"]))
                     };
                 });
+            //services.AddControllers().AddNewtonsoftJson();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DBPractice", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DBPractice", Version = "v1" });
                 c.IncludeXmlComments("bin/Release/net5.0/DBPractice.xml", true);
                 c.AddSecurityDefinition("JwtBearer", new OpenApiSecurityScheme()
                 {
@@ -77,16 +94,26 @@ namespace DBPractice
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DBPractice v1"));
             }*/
+
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DBPractice v1"));
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/echo",
+                        context => context.Response.WriteAsync("echo"))
+                    .RequireCors(MyAllowSpecificOrigins);
+                endpoints.MapControllers().RequireCors(MyAllowSpecificOrigins);
+                endpoints.MapGet("/echo2",
+                    context => context.Response.WriteAsync("echo2"));
+            });
         }
     }
 }

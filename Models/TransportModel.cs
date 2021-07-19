@@ -1,14 +1,16 @@
+using System;
 namespace DBPractice.Models
 {
     /*
      * 这些行为产生之后对trash状态的转变，应该用trigger实现吧。
      */
+
     public class ThrowRequest
     {
-        public string gid { get; set; }//垃圾编号
-        public string bid { get; set; }//垃圾桶编号
+        public string gid { get; set; } //垃圾编号
+        public string bid { get; set; } //垃圾桶编号
     }
-    
+
     /*
      * 垃圾的运输应该分为开始和结束
      * 垃圾运输开始之后不应该立刻存进数据库里
@@ -17,18 +19,29 @@ namespace DBPractice.Models
      * 运输开始由运输员决定
      * 但是运输结束只能由垃圾站的staff决定
      */
-    public class TransportRequest
+    public class Transport
     {
-        public string sid { get; set; }//垃圾桶编号
-        public string tid { get; set; }//垃圾车编号
-        public string pid { get; set; }//垃圾处理站编号
+        public string truck_id { get; set; }//垃圾车编号
+        public DateTime start_time { get; set; }
+        public string dustbin_id { get; set; }
+        public string gar_id { get; set; }
+        public string plant_name { get; set; }//垃圾处理站
+        public DateTime end_time { get; set; }
+    }
+    public class TransportStart
+    {    
+        public string truck_id { get; set; }//垃圾车编号
+        public DateTime start_time { get; set; }  
+        public string dustbin_id { get; set; }
     }
     /*
      * Finish请求发过来，所有pid是本垃圾站的都更新状态
      */
-    public class FinishRequest
+    public class TransportEnd
     {
-        public string pid { get; set; }
+        public string truck_id { get; set; }//垃圾车编号
+        public string plant_name { get; set; }//垃圾处理站
+        public DateTime end_time { get; set; }
     }
     
 }

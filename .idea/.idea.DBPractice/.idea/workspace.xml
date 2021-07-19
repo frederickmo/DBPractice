@@ -8,11 +8,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7db62b5f-bfe8-4122-9628-0584fba88cca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/DBPractice.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DBPractice/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/FacilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FacilityController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/GarbageController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/GarbageController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DBPractice.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DBPractice.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/ConfigModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ConfigModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/FacilityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/FacilityModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/TransportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TransportModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/TrashModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TrashModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/UserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,10 +40,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2EF6561A-D0E9-4041-94EF-EDAA489D28EE/228/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A9771B1B-9028-4496-853F-BBE4CEDF5E2A/3/SwaggerMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Program.cs" />
@@ -44,13 +49,13 @@
       <option value="$PROJECT_DIR$/Controllers/TrashController.cs" />
       <option value="$PROJECT_DIR$/Models/UserModel.cs" />
       <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
-      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
       <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/Models/TrashModel.cs" />
       <option value="$PROJECT_DIR$/Startup.cs" />
       <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
-      <option value="$PROJECT_DIR$/Controllers/GarbageController.cs" />
       <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
+      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/GarbageController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uGAxUIaxosK6JlHMxev2nCXZZH" />
@@ -122,7 +127,8 @@
       <workItem from="1625372723087" duration="4029000" />
       <workItem from="1625394943998" duration="1282000" />
       <workItem from="1625461408164" duration="1452000" />
-      <workItem from="1625464448919" duration="4215000" />
+      <workItem from="1625464448919" duration="5235000" />
+      <workItem from="1626653970582" duration="2298000" />
     </task>
     <task id="LOCAL-00001" summary="2021年7月2日8:30">
       <created>1625228673608</created>
@@ -173,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625376066423</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="可以使用token，添加了注释">
+      <created>1625468998406</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1625468998406</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +215,8 @@
     <MESSAGE value="JWT可用" />
     <MESSAGE value="添加了垃圾投递记录" />
     <MESSAGE value="更改claim内容，增加了用户信息查找的样例" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改claim内容，增加了用户信息查找的样例" />
+    <MESSAGE value="可以使用token，添加了注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="可以使用token，添加了注释" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

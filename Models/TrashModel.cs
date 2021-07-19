@@ -1,42 +1,36 @@
 using System;
-using System.Runtime.InteropServices;
-using DBPractice.Models;
 namespace DBPractice.Models
 {
     public class Garbage
     {
-        public string id { get; set; }
+        public string gar_id { get; set; }
         public string type { get; set; }
-        public char result { get; set; }
-        public DateTime finishtime { get; set; }
+        public string user_id { get; set; }
+        public DateTime created_time { get; set; }
+    }
+    public class DueTime
+    {
+        public string year { get; set; }
+        public int month { get; set; }
+        public int day { get; set; }
+        public int hour { get; set; }
+        public int minute { get; set; }
+        public int second { get; set; }
+    }
+    public class ViolateRecord
+    {
+        public string user_id { get; set; }
+        public string watcher_id { get; set; }
+        public string reason { get; set; }
+        public int punishment { get; set; }
+        public DateTime violate_time { get; set; }
     }
 
-    public class ThrowGarbage
+    public class Interact
     {
-        public string username { get; set; }
-        public string garbageid { get; set; }
-        public char status { get; set; }
-        public DateTime throwtime { get; set; }
+        public string carrier_id { get; set; }
+        public string staff_id { get; set; }
+        public string interact_time { get; set; }
+        public char interact_result { get; set; }
     }
-
-    public class TransportStart
-    {
-        public string garbageid { get; set; }
-        public string truckid { get; set; }
-        public DateTime starttime { get; set; }
-    }
-
-    public class TransportEnd
-    {
-        public string garbageid { get; set; }
-        public string truckid { get; set; }
-        public DateTime endtime { get; set; }
-    }
-    public class Record
-    {
-        public string username { get; set; }
-        public Garbage garbage { get; set; }
-    }
-
-    
 }
