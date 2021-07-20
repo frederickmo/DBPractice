@@ -347,7 +347,6 @@ namespace DBPractice.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public BinSite Get(string req)
         {
             var resp = new BinSite();
@@ -374,7 +373,6 @@ namespace DBPractice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public List<BinSite> GetAll()
         {
             var respList = new List<BinSite>();

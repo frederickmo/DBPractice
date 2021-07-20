@@ -453,7 +453,7 @@ namespace DBPractice.Controllers
         /// <returns></returns>
         [HttpPost("Watcher")]
         [Authorize(Roles = "Administrator,Watcher")]
-        public UpdateResponse Update([FromBody] WCUpdateRequest req)
+        public UpdateResponse Update([FromBody] Watcher req)
         {
             var resp = new UpdateResponse { status = Config.FAIL };
             OracleConnection conn = null;
@@ -461,40 +461,14 @@ namespace DBPractice.Controllers
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "FROM watcher " +
-                                 $"WHERE watcher_id='{req.watcher.id}'";
-                OracleDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                if (DBConn.MD5Encrypt16(req.password) != reader["watcher_password"].ToString())
-                {
-                    resp.status = Config.FAIL;
-                    resp.updateMessage = "密码错误";
-                    DBConn.CloseConn(conn);
-                    return resp;
-                }
-
-                var info = new GarbageMan
-                {
-                    id = reader["watcher_id"].ToString(),
-                    name = !string.IsNullOrEmpty(req.watcher.name)
-                        ? req.watcher.name
-                        : reader["watcher_name"].ToString(),
-                    password = !string.IsNullOrEmpty(req.watcher.password)
-                        ? DBConn.MD5Encrypt16(req.watcher.password)
-                        : reader["watcher_password"].ToString(),
-                    phonenumber = !string.IsNullOrEmpty(req.watcher.phonenumber)
-                        ? req.watcher.phonenumber
-                        : reader["phone_num"].ToString(),
-                    address = !string.IsNullOrEmpty(req.watcher.address)
-                        ? req.watcher.address
-                        : reader["address"].ToString()
-                };
+                var connectString = "UPDATE WATCHER " + $"SET WATCHER_ID='{HttpContext.User.Identity.Name}'" +
+                                    (req.name != "" ? $",WATCHER_NAME='{req.name}'" : "")+
+                                    (req.password != "" ? $",WATCHER_PASSWORD='{DBConn.MD5Encrypt16(req.password)}'" : "") +
+                                    (req.phonenumber != "" ? $",PHONE_NUM='{req.phonenumber}'" : "")+
+                                    (req.address != "" ? $",ADDRESS='{req.address}' " : "")+
+                                    $"WHERE WATCHER_ID='{HttpContext.User.Identity.Name}'";
                 //判断传入请求是否有null值，若有则不进行修改
-                cmd.CommandText = "UPDATE watcher " +
-                                  $"SET watcher_name='{info.name}',watcher_password='{info.password}'," +
-                                  $"phone_num='{info.phonenumber}',address='{info.address}' " +
-                                  $"WHERE watcher_id='{info.id}'";
+                cmd.CommandText = connectString;
                 if (cmd.ExecuteNonQuery() == 0)
                 {
                     resp.status = Config.FAIL;
@@ -520,7 +494,7 @@ namespace DBPractice.Controllers
         /// <returns></returns>
         [HttpPost("Carrier")]
         [Authorize(Roles = "Administrator,Carrier")]
-        public UpdateResponse Update([FromBody] CRUpdateRequest req)
+        public UpdateResponse Update([FromBody] CRUpdateRequest req) 
         {
             var resp = new UpdateResponse { status = Config.FAIL };
             OracleConnection conn = null;

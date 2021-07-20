@@ -19,6 +19,7 @@ namespace DBPractice.Models
     }
     public class ViolateRecord
     {
+        public string gar_id { get; set; }
         public string user_id { get; set; }
         public string watcher_id { get; set; }
         public string reason { get; set; }
@@ -26,6 +27,10 @@ namespace DBPractice.Models
         public DateTime violate_time { get; set; }
     }
 
+    public class ViolateDetail : ViolateRecord
+    {
+        public string user_id { set; get; }
+    }
     public class Interact
     {
         public string carrier_id { get; set; }

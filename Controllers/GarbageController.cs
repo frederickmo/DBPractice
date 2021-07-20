@@ -57,7 +57,7 @@ namespace DBPractice.Controllers
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO garbage " +
-                                        $"VALUES('{req.gar_id}','{req.type}','{req.user_id}','{DateTime.Now:yyyy-MM-dd hh:mm:ss}')";//U表示未处理
+                                        $"VALUES('{req.gar_id}','{req.type}','{req.user_id}',TO_DATE('{DateTime.Now:yyyy-MM-dd hh:mm:ss}','yyyy-mm-dd hh24:mi:ss'))";//U表示未处理
                 cmd.ExecuteNonQuery();
                 resp.status = Config.SUCCESS;
             }
@@ -70,32 +70,7 @@ namespace DBPractice.Controllers
             return resp;
         }
 
-        /// <summary>
-        /// 投递垃圾
-        /// </summary>
-        /// <returns></returns>
-        [Authorize(Roles = "Watcher")]
-        [HttpPost]
-        public Response Throw([FromBody] ThrowRequest req)
-        {
-            var resp = new Response();
-            OracleConnection conn = null;
-            try
-            {
-                conn = DBConn.OpenConn();
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO THROW " +
-                                  $"VALUES('{req.gid}','{req.bid}','{DateTime.Now:yyyy-MM-dd hh:mm:ss}')";
-                cmd.ExecuteNonQuery();
-                resp.status = Config.SUCCESS;
-            }
-            catch (Exception ex)
-            {
-                resp.status = Config.FAIL;
-            }
-            DBConn.CloseConn(conn);
-            return resp;
-        }
+
         /// <summary>
         /// 垃圾状态的更新，由StationStaff来提供垃圾处理结果信息
         /// </summary>
@@ -335,7 +310,126 @@ namespace DBPractice.Controllers
             return respList;
         }
     }
-    
+
+    /// <summary>
+    /// 垃圾投递管理
+    /// </summary>
+    [ApiController, Route("[controller]/[action]")]
+    public class ThrowController : Controller
+    {
+        /*
+         * INSERT INTO "C##PDCR"."THROW" ("GAR_ID", "DUSTBIN_ID", "THROW_TIME") VALUES ('09999999', 'D001', TO_DATE('2021-07-16 19:18:47', 'SYYYY-MM-DD HH24:MI:SS'));
+         */
+        /// <summary>
+        /// 投递垃圾
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Watcher")]
+        [HttpPost]
+        public AddResponse Add([FromBody] ThrowRequest req)
+        {
+            var resp = new AddResponse();
+            OracleConnection conn = null;
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO THROW " +
+                                  $"VALUES('{req.gid}','{req.bid}',TO_DATE('{DateTime.Now:yyyy-MM-dd hh:mm:ss}','yyyy-mm-dd hh24:mi:ss'))";
+                cmd.ExecuteNonQuery();
+                resp.status = Config.SUCCESS;
+                resp.addMessage = "投递成功";
+            }
+            catch (Exception ex)
+            {
+                resp.status = Config.FAIL;
+                resp.addMessage = ex.Message;
+            }
+
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+
+        /// <summary>
+        /// 撤回投递记录，投递记录不能改，只能删.
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Watcher,Administrator")]
+        [HttpGet]
+        public DeleteResponse Delete(string req)
+        {
+            var resp = new DeleteResponse();
+            OracleConnection conn = null;
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = $"DELETE FROM THROW WHERE GAR_ID='{req}'";
+                cmd.ExecuteNonQuery();
+                resp.status = Config.SUCCESS;
+                resp.deleteMessage = "撤回成功";
+            }
+            catch (Exception ex)
+            {
+                resp.status = Config.FAIL;
+                resp.deleteMessage = ex.Message;
+            }
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+
+        /// <summary>
+        /// 投递记录
+        /// </summary>
+        public struct ThrowRecord
+        {
+            public string user_id { get; set; }
+            public string gar_id { get; set; }
+            public string gar_type { get; set; }
+            public string dustbin_id { get; set; }
+            public DateTime throw_time { get; set; }
+        };
+        
+        /// <summary>
+        /// 根据watcher_id取投递记录
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Administrator,Watcher")]
+        public List<ThrowRecord> GetThrowRecord(string req)
+        {
+            var resp = new List<ThrowRecord>();
+            OracleConnection conn = null;
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT " +
+                                  "USER_ID,GAR_ID,GAR_TYPE," +
+                                  "DUSTBIN_ID,THROW_TIME " +
+                                  "FROM GARBAGE NATURAL JOIN THROW NATURAL JOIN DUSTBIN " +
+                                  $"WHERE SITE_NAME='{req}'";//按照垃圾站编号查找
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var temp = new ThrowRecord()
+                    {
+                        user_id = reader.GetString(0),
+                        gar_id = reader.GetString(1),
+                        gar_type = reader.GetString(2),
+                        dustbin_id = reader.GetString(3),
+                        throw_time = reader.GetDateTime(4)
+                    };
+                    resp.Add(temp);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message);}
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+    }
 
     ///<summary>
     ///有关所有垃圾运输的api
@@ -548,27 +642,21 @@ namespace DBPractice.Controllers
             var resp = new AddResponse();
             OracleConnection conn = null;
             conn = DBConn.OpenConn();
-            OracleTransaction m_OraTrans = conn.BeginTransaction();//创建事务对象
             var cmd = conn.CreateCommand();
             var dt = DateTime.Now;
             try
             {
+                //INSERT INTO "C##PDCR"."VIOLATE_RECORD" ("WATCHER_ID", "REASON", "PUNISHMENT", "VIOLATE_TIME", "GAR_ID") VALUES ('2952108', '123', '1', TO_DATE('2021-07-20 11:35:11', 'SYYYY-MM-DD HH24:MI:SS'), '11111111');
                 cmd.CommandText = "INSERT INTO violate_record " +
-                                 $"VALUES('{req.user_id}','{req.watcher_id}','{req.reason}',{req.punishment}," +
-                                 $"'{dt:yyyy-MM-dd hh:mm:ss}')";
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = "UPDATE alluser " +
-                                 $"SET cre_points=cre_points-{req.punishment} " +
-                                 $"WHERE user_id ='{req.user_id}'";
+                                 $"VALUES('{req.watcher_id}','{req.reason}',{req.punishment}," +
+                                 $"TO_DATE('{dt:yyyy-MM-dd hh:mm:ss}','yyyy-mm-dd hh24:mi:ss'),'{req.gar_id}')";
                 cmd.ExecuteNonQuery();
                 resp.status = Config.SUCCESS;
-                m_OraTrans.Commit();
             }
             catch (Exception ex)
             {
                 resp.status = Config.FAIL;
                 resp.addMessage = ex.Message;
-                m_OraTrans.Rollback();
             }
             DBConn.CloseConn(conn);
             return resp;
@@ -589,8 +677,8 @@ namespace DBPractice.Controllers
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE violate_record " +
-                                 $"SET user_id='{req.user_id}',watcher_id='{req.watcher_id}',reason='{req.reason}',punishment='{req.punishment}' " +                                
-                                 $"WHERE user_id='{req.user_id}' AND watcher_id='{req.watcher_id}' AND violate_time='{req.violate_time:yyyy-MM-dd hh-mm-ss}'";
+                                 $"SET reason='{req.reason}',punishment='{req.punishment}' " +                                
+                                 $"WHERE gar_id={req.gar_id}";
                 var k = cmd.ExecuteNonQuery();
                 if(k==1)
                 {
@@ -618,9 +706,9 @@ namespace DBPractice.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpPost] //Authorize(Roles = "Administrator")]
-        [Authorize(Roles = "Administrator")]
-        public DeleteResponse Delete([FromBody] ViolateRecord req)
+        [HttpGet] //Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Watcher,Administrator")]
+        public DeleteResponse Delete(string req)
         {
             var resp = new DeleteResponse();
             OracleConnection conn = null;
@@ -628,8 +716,8 @@ namespace DBPractice.Controllers
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM violate_record " +
-                                  $"WHERE user_id='{req.user_id}' AND watcher_id='{req.watcher_id}' AND violate_time='{req.violate_time:yyyy-MM-dd hh-mm-ss}'";           
+                cmd.CommandText = "DELETE FROM VIOLATE_RECORD " +
+                                  $"WHERE gar_id='{req}'";           
                 int k = cmd.ExecuteNonQuery();
                 if (k == 1)
                 {
@@ -667,7 +755,7 @@ namespace DBPractice.Controllers
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM violate_record " +
-                                 $"WHERE violate_time<='{req:yyyy-MM-dd hh-mm-dd}'";
+                                 $"WHERE violate_time<=TO_DATE('{req:yyyy-MM-dd hh-mm-dd}','yyyy-mm-dd hh24-mi-ss')";
                 cmd.ExecuteNonQuery();
                 resp.status = Config.SUCCESS;
             }
@@ -695,19 +783,59 @@ namespace DBPractice.Controllers
             {
                 var conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "FROM violate_record " +
+                cmd.CommandText = "SELECT gar_id,watcher_id,reason,punishment,violate_time " +
+                                  "FROM violate_record natural join GARBAGE " +
                                  $"WHERE user_id='{req}'" +
-                                 $"ORDER BY violate_time DESC";
+                                 "ORDER BY violate_time DESC";
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     var resp = new ViolateRecord
                     {
-                        user_id = reader["user_id"].ToString(),
-                        watcher_id = reader["watcher_id"].ToString(),
-                        reason = reader["reason"].ToString(),
-                        punishment = Convert.ToInt32(reader["punishment"].ToString())
+                        user_id="",
+                        gar_id = reader.GetString(0),
+                        watcher_id = reader.GetString(1),
+                        reason = reader.GetString(2),
+                        punishment = reader.GetInt32(3),
+                        violate_time = reader.GetDateTime(4)
+                    };
+                    respList.Add(resp);
+                }
+            }
+            catch (Exception ex) {Console.WriteLine(ex.Message); }
+            return respList;
+        }
+
+        
+        /// <summary>
+        /// 以检查员的ID获取违规记录
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Watcher,Administrator")]
+        public List<ViolateRecord> GetAll(string req)
+        {
+            var respList = new List<ViolateRecord>();
+            try
+            {
+                var conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT gar_id,user_id,reason,punishment,violate_time " +
+                                  "FROM violate_record natural join GARBAGE " +
+                                  $"WHERE watcher_id='{req}'" +
+                                  "ORDER BY violate_time DESC";
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var resp = new ViolateRecord
+                    {
+                        watcher_id="",
+                        gar_id = reader.GetString(0),
+                        user_id = reader.GetString(1),
+                        reason = reader.GetString(2),
+                        punishment = reader.GetInt32(3),
+                        violate_time = reader.GetDateTime(4)
                     };
                     respList.Add(resp);
                 }

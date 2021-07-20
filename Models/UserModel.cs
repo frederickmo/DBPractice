@@ -13,7 +13,7 @@ namespace DBPractice.Models
     }
     public class Administrator:User
     {
-
+        
     }
     public class GarbageMan:User
     {
