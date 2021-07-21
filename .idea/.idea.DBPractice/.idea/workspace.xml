@@ -13,8 +13,9 @@
       <change beforePath="$PROJECT_DIR$/Controllers/GarbageController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/GarbageController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/ConfigModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ConfigModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/TrashModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TrashModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/UserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/TransportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TransportModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,19 +36,19 @@
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Program.cs" />
-      <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
       <option value="$PROJECT_DIR$/Models/Facility.cs" />
       <option value="$PROJECT_DIR$/Models/FacilityModel.cs" />
       <option value="$PROJECT_DIR$/Controllers/TrashController.cs" />
-      <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
-      <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/Startup.cs" />
-      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
       <option value="$PROJECT_DIR$/Models/UserModel.cs" />
-      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
-      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
       <option value="$PROJECT_DIR$/Models/TrashModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/FacilityController.cs" />
+      <option value="$PROJECT_DIR$/Models/TransportModel.cs" />
+      <option value="$PROJECT_DIR$/Controllers/UserController.cs" />
       <option value="$PROJECT_DIR$/Controllers/GarbageController.cs" />
+      <option value="$PROJECT_DIR$/Models/ConfigModel.cs" />
+      <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
+      <option value="$PROJECT_DIR$/appsettings.json" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uGAxUIaxosK6JlHMxev2nCXZZH" />
@@ -58,7 +59,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3496708" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34975636" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -68,7 +69,8 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.DBPractice">
@@ -127,7 +129,11 @@
       <workItem from="1626709799724" duration="471000" />
       <workItem from="1626740126859" duration="1461000" />
       <workItem from="1626769923895" duration="827000" />
-      <workItem from="1626773193296" duration="11028000" />
+      <workItem from="1626773193296" duration="13383000" />
+      <workItem from="1626830685647" duration="5635000" />
+      <workItem from="1626848894524" duration="1251000" />
+      <workItem from="1626852867408" duration="3426000" />
+      <workItem from="1626857734546" duration="22991000" />
     </task>
     <task id="LOCAL-00001" summary="2021年7月2日8:30">
       <created>1625228673608</created>
@@ -199,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626694555479</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="修改到watcher">
+      <created>1626797832806</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1626797832806</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +244,8 @@
     <MESSAGE value="可以使用token，添加了注释" />
     <MESSAGE value="暑假第一版" />
     <MESSAGE value="garbage数据库及状态查询代码更新完成。" />
-    <option name="LAST_COMMIT_MESSAGE" value="garbage数据库及状态查询代码更新完成。" />
+    <MESSAGE value="修改到watcher" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改到watcher" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

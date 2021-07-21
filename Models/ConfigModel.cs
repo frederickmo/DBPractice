@@ -11,7 +11,7 @@ namespace DBPractice.Models
         public static int TEST = -2;//测试返回值
         public static readonly int SUCCESS = 1;//成功
         public static readonly int FAIL = -1;//失败
-        private static readonly string HOST = "220.179.227.205";//"localhost";
+        private static readonly string HOST = "localhost";//"localhost";
         private static readonly string USERNAME = "C##PDCR";//"system";//
         private static readonly string PASSWORD = "LTY20001212";//"Db123456";//
         private static readonly string SERVICENAME = "ORCL";//"DUSBIN";//

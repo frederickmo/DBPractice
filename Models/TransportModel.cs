@@ -21,17 +21,20 @@ namespace DBPractice.Models
      */
     public class Transport
     {
-        public string truck_id { get; set; }//垃圾车编号
-        public DateTime start_time { get; set; }
+        public string trans_id { get; set; }
         public string dustbin_id { get; set; }
-        public string gar_id { get; set; }
+        public string truck_id { get; set; }//垃圾车编号
+
+        public string carrier_id { get; set; }
+
         public string plant_name { get; set; }//垃圾处理站
+        public DateTime start_time { get; set; }
         public DateTime end_time { get; set; }
+  
     }
     public class TransportStart
     {    
         public string truck_id { get; set; }//垃圾车编号
-        public DateTime start_time { get; set; }  
         public string dustbin_id { get; set; }
     }
     /*
@@ -41,7 +44,6 @@ namespace DBPractice.Models
     {
         public string truck_id { get; set; }//垃圾车编号
         public string plant_name { get; set; }//垃圾处理站
-        public DateTime end_time { get; set; }
     }
     
 }

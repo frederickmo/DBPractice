@@ -397,6 +397,7 @@ namespace DBPractice.Controllers
             return respList;
         }
     }
+
     /// <summary>
     /// 垃圾车
     /// </summary>
@@ -419,7 +420,7 @@ namespace DBPractice.Controllers
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO truck " +
-                                        $"VALUES('{req.id}','{req.condition}','{req.carrierID}')";
+                                  $"VALUES('{req.id}','{req.condition}','{req.carrierID}')";
                 cmd.ExecuteNonQuery();
                 resp.status = Config.SUCCESS;
             }
@@ -428,9 +429,11 @@ namespace DBPractice.Controllers
                 resp.status = Config.FAIL;
                 resp.addMessage = ex.Message;
             }
+
             DBConn.CloseConn(conn);
             return resp;
         }
+
         /// <summary>
         /// 垃圾车的删除
         /// </summary>
@@ -448,7 +451,7 @@ namespace DBPractice.Controllers
                     conn = DBConn.OpenConn();
                     var cmd = conn.CreateCommand();
                     cmd.CommandText = "DELETE FROM truck " +
-                                            $"WHERE truck_id ='{req.id}'";
+                                      $"WHERE truck_id ='{req.id}'";
                     if (cmd.ExecuteNonQuery() == 0)
                     {
                         resp.status = Config.FAIL;
@@ -456,6 +459,7 @@ namespace DBPractice.Controllers
                         DBConn.CloseConn(conn);
                         return resp;
                     }
+
                     resp.status = Config.SUCCESS;
                     resp.deleteMessage = "删除成功";
                 }
@@ -464,10 +468,12 @@ namespace DBPractice.Controllers
                     resp.status = Config.FAIL;
                     resp.deleteMessage = ex.Message;
                 }
+
                 DBConn.CloseConn(conn);
                 return resp;
             }
         }
+
         /// <summary>
         /// 垃圾车的状态更新
         /// </summary>
@@ -489,26 +495,23 @@ namespace DBPractice.Controllers
                 {
                     resp.status = Config.FAIL;
                     resp.updateMessage = "未找到指定ID";
-                    DBConn.CloseConn(conn);
-                    return resp;
                 }
-                if (!string.IsNullOrEmpty(req.carrierID))
+                else
                 {
-                    cmd.CommandText = "UPDATE truck " + $"SET carrier_id ='{req.carrierID}'" +
-                    $"WHERE truck_id ='{req.id}'";
-                    cmd.ExecuteNonQuery();
-                }               
-                resp.status = Config.SUCCESS;
-                resp.updateMessage = "更改成功";
+                    resp.status = Config.SUCCESS;
+                    resp.updateMessage = "更改成功";
+                }
             }
             catch (Exception ex)
             {
                 resp.status = Config.FAIL;
                 resp.updateMessage = ex.Message;
             }
+
             DBConn.CloseConn(conn);
             return resp;
         }
+
         /// <summary>
         /// 获取某一个垃圾车的属性
         /// </summary>
@@ -525,18 +528,24 @@ namespace DBPractice.Controllers
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT* " +
                                   "FROM truck " +
-                                 $"WHERE truck_id='{req}'";
+                                  $"WHERE truck_id='{req}'";
                 OracleDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     resp.id = reader["truck_id"].ToString();
-                    resp.condition = Convert.ToChar(reader["condition"].ToString() ?? throw new InvalidOperationException());
+                    resp.condition =
+                        Convert.ToChar(reader["condition"].ToString() ?? throw new InvalidOperationException());
                     resp.carrierID = reader["carrier_id"].ToString();
                 }
             }
-            catch (Exception ex) {Console.WriteLine(ex.Message); }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             return resp;
         }
+
         /// <summary>
         /// 获取所有垃圾车的一个列表
         /// </summary>
@@ -546,9 +555,10 @@ namespace DBPractice.Controllers
         public List<Truck> GetAll()
         {
             var respList = new List<Truck>();
+            OracleConnection conn = null;
             try
             {
-                var conn = DBConn.OpenConn();
+                conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT* " +
                                   "FROM truck";
@@ -558,17 +568,145 @@ namespace DBPractice.Controllers
                     var resp = new Truck
                     {
                         id = reader["truck_id"].ToString(),
-                        condition = Convert.ToChar(reader["condition"].ToString() ?? throw new InvalidOperationException()),
+                        condition = Convert.ToChar(reader["condition"].ToString() ??
+                                                   throw new InvalidOperationException()),
                         carrierID = reader["carrier_id"].ToString()
                     };
                     respList.Add(resp);
                 }
-                DBConn.CloseConn(conn);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message);}
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            DBConn.CloseConn(conn);
             return respList;
         }
+
+        /// <summary>
+        /// 获取当前空闲的车辆，返回一个可用的ID列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Administrator,Carrier")]
+        public List<String> GetFree()
+        {
+            var resp = new List<String>();
+            var conn = new OracleConnection();
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "select TRUCK_ID from truck where CARRIER_ID is null and CONDITION!='B'";
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var temp = reader.GetString(0);
+                    resp.Add(temp);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+
+        /// <summary>
+        /// 离开车辆，车辆状态设置为null
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Carrier")]
+        public void OffWork()
+        {
+            var resp = new DeleteResponse();
+            var conn = new OracleConnection();
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE truck " + $"SET Carrier = null " +
+                                  $"WHERE truck_id = '{HttpContext.User.Identity.Name}'";
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            DBConn.CloseConn(conn);
+            return;
+        }
+
+        /// <summary>
+        /// 切换车辆，原来的变成null
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Carrier")]
+        public UpdateResponse SetTruck(string req)
+        {
+            var resp = new UpdateResponse();
+            var conn = new OracleConnection();
+            conn = DBConn.OpenConn();
+            var m_OraTrans = conn.BeginTransaction();
+            try
+            {
+
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE TRUCK " + "SET CARRIER_ID = null " +
+                                  $"WHERE CARRIER_ID = '{HttpContext.User.Identity.Name}'";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "UPDATE TRUCK " + $"SET CARRIER_ID = '{HttpContext.User.Identity.Name}' " +
+                                  $"WHERE TRUCK_ID = '{req}'";
+                cmd.ExecuteNonQuery();
+                m_OraTrans.Commit();
+                resp.updateMessage = "更新成功";
+                resp.status = Config.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                m_OraTrans.Rollback();
+                Console.WriteLine(ex.Message);
+                resp.updateMessage = ex.Message;
+                resp.status = Config.FAIL;
+            }
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Carrier")]
+        public string getTruck()
+        {
+            string resp="";
+            var conn = new OracleConnection();
+            try
+            {
+                conn = DBConn.OpenConn();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = $"select TRUCK_ID from truck where CARRIER_ID={HttpContext.User.Identity.Name}";
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                     resp = reader.GetString(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            DBConn.CloseConn(conn);
+            return resp;
+        }
+        
     }
+
     /// <summary>
     /// 垃圾处理站
     /// </summary>

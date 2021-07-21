@@ -425,8 +425,8 @@ namespace DBPractice.Controllers
                                     (req.name != "" ? $",user_name='{req.name}'" : "")+
                                     (req.password != "" ? $",user_password='{DBConn.MD5Encrypt16(req.password)}'" : "") +
                                     (req.phonenumber != "" ? $",phone_num='{req.phonenumber}'" : "")+
-                                    (req.address != "" ? $",address='{req.address}' " : "")+
-                                    $"WHERE user_id='{HttpContext.User.Identity.Name}'";
+                                    (req.address != "" ? $",address='{req.address}'" : "")+
+                                    $" WHERE user_id='{HttpContext.User.Identity.Name}'";
                 cmd.CommandText = connectString;
                 if (cmd.ExecuteNonQuery() == 0)
                 {
@@ -461,14 +461,14 @@ namespace DBPractice.Controllers
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                var connectString = "UPDATE WATCHER " + $"SET WATCHER_ID='{HttpContext.User.Identity.Name}'" +
+                var connectString = "UPDATE WATCHER " + $"SET WATCHER_ID='{req.id}'" +
                                     (req.name != "" ? $",WATCHER_NAME='{req.name}'" : "")+
                                     (req.password != "" ? $",WATCHER_PASSWORD='{DBConn.MD5Encrypt16(req.password)}'" : "") +
                                     (req.phonenumber != "" ? $",PHONE_NUM='{req.phonenumber}'" : "")+
-                                    (req.address != "" ? $",ADDRESS='{req.address}' " : "")+
-                                    $"WHERE WATCHER_ID='{HttpContext.User.Identity.Name}'";
+                                    (req.address != "" ? $",ADDRESS='{req.address}'" : "")+
+                                    $" WHERE WATCHER_ID='{req.id}'";
                 //判断传入请求是否有null值，若有则不进行修改
-                cmd.CommandText = connectString;
+                cmd.CommandText = connectString;    
                 if (cmd.ExecuteNonQuery() == 0)
                 {
                     resp.status = Config.FAIL;
@@ -494,7 +494,7 @@ namespace DBPractice.Controllers
         /// <returns></returns>
         [HttpPost("Carrier")]
         [Authorize(Roles = "Administrator,Carrier")]
-        public UpdateResponse Update([FromBody] CRUpdateRequest req) 
+        public UpdateResponse Update([FromBody] Carrier req) 
         {
             var resp = new UpdateResponse { status = Config.FAIL };
             OracleConnection conn = null;
@@ -502,36 +502,13 @@ namespace DBPractice.Controllers
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "FROM carrier " +
-                                 $"WHERE carrier_id='{req.transportpersonnel.id}'";
-                OracleDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                if (DBConn.MD5Encrypt16(req.password) != reader["carrier_password"].ToString())
-                {
-                    resp.status = Config.FAIL;
-                    resp.updateMessage = "密码错误";
-                    DBConn.CloseConn(conn);
-                    return resp;
-                }
-
-                var info = new Carrier
-                {
-                    id = reader["carrier_id"].ToString(),
-                    name = !string.IsNullOrEmpty(req.transportpersonnel.name)
-                        ? req.transportpersonnel.name
-                        : reader["carrier_name"].ToString(),
-                    password = !string.IsNullOrEmpty(req.transportpersonnel.password)
-                        ? DBConn.MD5Encrypt16(req.transportpersonnel.password)
-                        : reader["carrier_password"].ToString(),
-                    phonenumber = !string.IsNullOrEmpty(req.transportpersonnel.phonenumber)
-                        ? req.transportpersonnel.phonenumber
-                        : reader["phone_num"].ToString()
-                };
+                var connectString = "UPDATE CARRIER " + $"SET CARRIER_ID='{req.id}'" +
+                                    (req.name != "" ? $",CARRIER_NAME='{req.name}'" : "")+
+                                    (req.password != "" ? $",CARRIER_PASSWORD='{DBConn.MD5Encrypt16(req.password)}'" : "") +
+                                    (req.phonenumber != "" ? $",PHONE_NUM='{req.phonenumber}'" : "")+
+                                    $" WHERE CARRIER_ID='{req.id}'";
                 //判断传入请求是否有null值，若有则不进行修改
-                cmd.CommandText = "UPDATE carrier " +
-                                  $"SET carrier_name='{info.name}',carrier_password='{info.password}',phone_num='{info.phonenumber}' " +
-                                  $"WHERE carrier_id='{info.id}'";
+                cmd.CommandText = connectString;
                 if (cmd.ExecuteNonQuery() == 0)
                 {
                     resp.status = Config.FAIL;
@@ -557,7 +534,7 @@ namespace DBPractice.Controllers
         /// <returns></returns>
         [HttpPost("StationStaff")]
         [Authorize(Roles = "Administrator,StationStaff")]
-        public UpdateResponse Update([FromBody] SSUpdateRequest req)
+        public UpdateResponse Update([FromBody] StationStaff req)
         {
             var resp = new UpdateResponse { status = Config.FAIL };
             OracleConnection conn = null;
@@ -565,40 +542,13 @@ namespace DBPractice.Controllers
             {
                 conn = DBConn.OpenConn();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT* " +
-                                  "FROM staff " +
-                                 $"WHERE staff_id='{req.stationstaff.id}'";
-                OracleDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                if (DBConn.MD5Encrypt16(req.password) != reader["staff_password"].ToString())
-                {
-                    resp.status = Config.FAIL;
-                    resp.updateMessage = "密码错误";
-                    DBConn.CloseConn(conn);
-                    return resp;
-                }
-
-                var info = new StationStaff
-                {
-                    id = reader["staff_id"].ToString(),
-                    name = !string.IsNullOrEmpty(req.stationstaff.name)
-                        ? req.stationstaff.name
-                        : reader["staff_name"].ToString(),
-                    password = !string.IsNullOrEmpty(req.stationstaff.password)
-                        ? DBConn.MD5Encrypt16(req.stationstaff.password)
-                        : reader["staff_password"].ToString(),
-                    phonenumber = !string.IsNullOrEmpty(req.stationstaff.phonenumber)
-                        ? req.stationstaff.phonenumber
-                        : reader["phone_num"].ToString(),
-                    plantname = !string.IsNullOrEmpty(req.stationstaff.plantname)
-                        ? req.stationstaff.plantname
-                        : reader["plant_name"].ToString()
-                };
+                var connectString = "UPDATE STAFF " + $"SET STAFF_ID='{req.id}'" +
+                                    (req.name != "" ? $",STAFF_NAME='{req.name}'" : "")+
+                                    (req.password != "" ? $",STAFF_PASSWORD='{DBConn.MD5Encrypt16(req.password)}'" : "") +
+                                    (req.phonenumber != "" ? $",PHONE_NUM='{req.phonenumber}'" : "")+
+                                    $" WHERE STAFF_ID='{req.id}'";
                 //判断传入请求是否有null值，若有则不进行修改
-                cmd.CommandText = "UPDATE staff " +
-                                  $"SET staff_name='{info.name}',staff_password='{info.password}'," +
-                                  $"phone_num='{info.phonenumber}',plant_name='{info.plantname}' " +
-                                  $"WHERE staff_id='{info.id}'";
+                cmd.CommandText = connectString;
                 if (cmd.ExecuteNonQuery() == 0)
                 {
                     resp.status = Config.FAIL;
