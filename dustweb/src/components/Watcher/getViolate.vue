@@ -71,7 +71,7 @@ export default {
   methods:{
     getData()
     {
-      const url = this.$store.state.URL + "/ViolateRecord/GetAll?req=" + Base64.decode(localStorage.username);
+      const url = this.$URL + "/ViolateRecord/GetAll?req=" + Base64.decode(localStorage.username);
       fetch(url, {
         method: "GET",
         headers: {
@@ -89,7 +89,7 @@ export default {
     },
     withdraw(req)
     {
-      fetch(this.$store.state.URL + "/ViolateRecord/Delete?req=" + req, {
+      fetch(this.$URL + "/ViolateRecord/Delete?req=" + req, {
         method: "GET",
         headers: {
           accept: "text/plain",

@@ -91,7 +91,7 @@ export default {
           "password": this.UpdateForm.newPass,
           "phonenumber": "",
         }
-        fetch(this.$store.state.URL + "/User/Update/Carrier", {
+        fetch(this.$URL + "/User/Update/Carrier", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

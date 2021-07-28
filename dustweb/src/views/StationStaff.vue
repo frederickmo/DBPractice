@@ -28,7 +28,7 @@
         <UpdateInfo v-if="this.choice===2"></UpdateInfo>
         <UpdatePassword v-if="this.choice===3"></UpdatePassword>
         <GetTransportRecord v-if="this.choice===4"></GetTransportRecord>
-        <GetUnfinished v-if="this.choice===5"></GetUnfinished>
+        <!-- <GetUnfinished v-if="this.choice===5"></GetUnfinished> -->
         <!--          <el-table-column prop="date" label="日期" width="140">-->
         <!--          </el-table-column>-->
         <!--          <el-table-column prop="name" label="姓名" width="120">-->

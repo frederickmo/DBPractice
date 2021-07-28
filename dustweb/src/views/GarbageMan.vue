@@ -113,7 +113,7 @@ export default {
       }
     },
     addGarbage(){
-      fetch(this.$store.state.URL + "/Garbage/Add?req=" + encodeURIComponent(this.gar_type), {
+      fetch(this.$URL + "/Garbage/Add?req=" + encodeURIComponent(this.gar_type), {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),

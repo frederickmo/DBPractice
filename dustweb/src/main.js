@@ -1,11 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import store from './store'
 import router from './router'
-import element from "@/plugins/element";
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
+import { URL } from './global'
 
 const app = createApp(App)
 
-element(app);
-app.use(router).use(store).mount('#app')
+app.config.globalProperties.$URL=URL
 
+app.use(router)
+app.use(ElementPlus)
+app.mount('#app')
