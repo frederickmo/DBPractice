@@ -30,8 +30,8 @@
               <el-input type="password" v-model="LoginForm.password" autocomplete="on" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" round @click="submitForm('LoginForm')">提交</el-button>
-              <el-button round @click="resetForm('LoginForm')">重置</el-button>
+              <el-button type="primary" plain @click="submitForm('LoginForm')">提交</el-button>
+              <el-button plain @click="resetForm('LoginForm')">重置</el-button>
             </el-form-item>
           </el-form>
         </el-row>
@@ -80,7 +80,7 @@ export default {
         if (valid) {
           //console.log(this.$store.state.URL)
           const req = {userID: this.LoginForm.username, password: this.LoginForm.password};
-          fetch(this.$store.state.URL + "/User/Login", {
+          fetch(this.$URL + "/User/Login", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(req),

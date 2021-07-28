@@ -61,7 +61,7 @@ export default {
         "address": this.UserInfo.address
       }
       console.log(this.UserInfo.account, this.UserInfo.password);
-      fetch(this.$store.state.URL + "/User/Update/GarbageMan", {
+      fetch(this.$URL + "/User/Update/GarbageMan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export default {
 
     },
     resetInfo(){
-      fetch(this.$store.state.URL + "/User/GetInformation/Watcher?req=" + this.UserInfo.account, {
+      fetch(this.$URL + "/User/GetInformation/Watcher?req=" + this.UserInfo.account, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),

@@ -63,7 +63,7 @@ export default {
     console.log(1);
     console.log(localStorage.token);
     console.log(Base64.decode(localStorage.username));
-    const url = this.$store.state.URL+"/ViolateRecord/Get?req=" + Base64.decode(localStorage.username);
+    const url = this.$URL+"/ViolateRecord/Get?req=" + Base64.decode(localStorage.username);
     fetch(url, {
       method: "GET",
       headers: {

@@ -77,7 +77,7 @@ export default {
     console.log(1);
     console.log(localStorage.token);
     console.log(Base64.decode(localStorage.username));
-    const url = this.$store.state.URL+"/Garbage/GetAll?req=" + Base64.decode(localStorage.username);
+    const url = this.$URL+"/Garbage/GetAll?req=" + Base64.decode(localStorage.username);
     fetch(url, {
       method: "GET",
       headers: {

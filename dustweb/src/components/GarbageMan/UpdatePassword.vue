@@ -93,7 +93,7 @@ export default {
           "credit": 0,
           "address": ""
         }
-        fetch(this.$store.state.URL + "/User/Update/GarbageMan", {
+        fetch(this.$URL + "/User/Update/GarbageMan", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

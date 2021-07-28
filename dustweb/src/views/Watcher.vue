@@ -123,7 +123,7 @@ export default {
       this.choice=1;
       this.dialogFormVisible=0;
     }
-    fetch(this.$store.state.URL + "/Facility/Binsite/GetAll", {
+    fetch(this.$URL + "/Facility/Binsite/GetAll", {
       method: "GET",
       headers: {
         "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),

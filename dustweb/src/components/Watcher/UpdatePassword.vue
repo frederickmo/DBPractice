@@ -94,7 +94,7 @@ export default {
             "phonenumber": "",
             "address": ""
           }
-          fetch(this.$store.state.URL + "/User/Update/Watcher", {
+          fetch(this.$URL + "/User/Update/Watcher", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -50,7 +50,7 @@ export default {
         "phonenumber": this.UserInfo.phone,
       }
       console.log(this.UserInfo.account, this.UserInfo.password);
-      fetch(this.$store.state.URL + "/User/Update/Carrier", {
+      fetch(this.$URL + "/User/Update/Carrier", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default {
 
     },
     resetInfo(){
-      fetch(this.$store.state.URL + "/User/GetInformation/Carrier?req=" + this.UserInfo.account, {
+      fetch(this.$URL + "/User/GetInformation/Carrier?req=" + this.UserInfo.account, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),

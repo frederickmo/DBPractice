@@ -77,7 +77,7 @@
         <UpdateInfo v-if="this.choice===2"></UpdateInfo>
         <UpdatePassword v-if="this.choice===3"></UpdatePassword>
         <GetTransportRecord v-if="this.choice===4"></GetTransportRecord>
-        <GetUnfinished v-if="this.choice===5"></GetUnfinished>
+        <!-- <GetUnfinished v-if="this.choice===5"></GetUnfinished> -->
         <!--          <el-table-column prop="date" label="日期" width="140">-->
         <!--          </el-table-column>-->
         <!--          <el-table-column prop="name" label="姓名" width="120">-->
@@ -142,7 +142,7 @@ export default {
       if (this.Truck === '')
         return;
       localStorage.setItem("Truck", Base64.encode(this.Truck));
-      fetch(this.$store.state.URL + "/Facility/Truck/SetTruck?req=" + this.Truck, {
+      fetch(this.$URL + "/Facility/Truck/SetTruck?req=" + this.Truck, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -157,7 +157,7 @@ export default {
       this.choice = 1;
     },
     getFree() {
-      fetch(this.$store.state.URL + "/Facility/Truck/GetFree", {
+      fetch(this.$URL + "/Facility/Truck/GetFree", {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -171,7 +171,7 @@ export default {
       })
     },
     async getTruck() {
-      this.Truck = await (await fetch(this.$store.state.URL + "/Facility/Truck/GetTruck", {
+      this.Truck = await (await fetch(this.$URL + "/Facility/Truck/GetTruck", {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -188,7 +188,7 @@ export default {
 
     },
     async selectStart() {
-      this.DustbinData = await (await fetch(this.$store.state.URL + "/Facility/TrashCan/GetAll", {
+      this.DustbinData = await (await fetch(this.$URL + "/Facility/TrashCan/GetAll", {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -202,7 +202,7 @@ export default {
         truck_id: Base64.decode(localStorage.getItem("Truck")),
         dustbin_id: this.dustbin
       };
-      fetch(this.$store.state.URL + "/Transport/TransportStart", {
+      fetch(this.$URL + "/Transport/TransportStart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

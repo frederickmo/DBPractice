@@ -1,52 +1,48 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
-import Login from '@/views/Login'
-import Carrier from '@/views/Carrier'
-import Watcher from '@/views/Watcher'
-import GarbageMan from "@/views/GarbageMan";
-import StationStaff from "@/views/StationStaff"
-//GarbageMan Components
-import Information from "@/components/GarbageMan/GetInfo"
-
-//Watcher Components
-
-
-//Carrier Components
-
-
-//StationStaff Components
-
-
-//Administrator Components
-
-
+import { createRouter, createWebHistory } from 'vue-router'
+import Login from '../views/Login'
+import GarbageMan from '../views/GarbageMan'
+import Watcher from '../views/Watcher'
+import Carrier from '../views/Carrier'
+import StationStaff from '../views/StationStaff'
+import Admin from '../views/Admin'
+import Information from '../components/GarbageMan/GetInfo'
 
 const routes = [
-    {
-        path: '/',
-        name: Login,
-        component: Login
-    }, {
-        path: '/GarbageMan',
-        name: GarbageMan,
-        component: GarbageMan,Information
-    }, {
-        path: '/Carrier',
-        name: Carrier,
-        component: Carrier
-    }, {
-        path: '/StationStaff',
-        name: StationStaff,
-        component: StationStaff
-    }, {
-        path: '/Watcher',
-        name: Watcher,
-        component: Watcher
-    }
+  {
+    path: '/',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/GarbageMan',
+    name: 'GarbageMan',
+    component: GarbageMan, Information
+  },
+  {
+    path:'/Watcher',
+    name:'Watcher',
+    component:Watcher,
+  },
+  {
+    path:'/Carrier',
+    name:'Carrier',
+    component:Carrier
+  },
+  {
+    path:'/StationStaff',
+    name:'StationStaff',
+    component:StationStaff
+  },
+  {
+    path:'/Admin',
+    name:'Admin',
+    component:Admin
+  }
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes
+  history: createWebHistory(process.env.BASE_URL),
+  routes
 })
 
 export default router

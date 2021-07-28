@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     getData(){
-      const url = this.$store.state.URL + "/Transport/CarrierGet?req=" + Base64.decode(localStorage.getItem("username"));
+      const url = this.$URL + "/Transport/CarrierGet?req=" + Base64.decode(localStorage.getItem("username"));
       fetch(url, {
         method: "GET",
         headers: {

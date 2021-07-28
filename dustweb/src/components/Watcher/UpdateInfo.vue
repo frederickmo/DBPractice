@@ -65,7 +65,7 @@ export default {
       }
       localStorage.setItem("workingStation",Base64.encode(this.UserInfo.workingStation));
       console.log(this.UserInfo.account, this.UserInfo.password);
-      fetch(this.$store.state.URL + "/User/Update/Watcher", {
+      fetch(this.$URL + "/User/Update/Watcher", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ export default {
     },
     resetInfo(){
       this.UserInfo.workingStation=Base64.decode(localStorage.getItem("workingStation"));
-      fetch(this.$store.state.URL + "/User/GetInformation/Watcher?req=" + this.UserInfo.account, {
+      fetch(this.$URL + "/User/GetInformation/Watcher?req=" + this.UserInfo.account, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -107,7 +107,7 @@ export default {
   mounted() {
     this.UpdateStatus = false;
     this.resetInfo();
-    fetch(this.$store.state.URL + "/Facility/Binsite/GetAll", {
+    fetch(this.$URL + "/Facility/Binsite/GetAll", {
       method: "GET",
       headers: {
         "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),

@@ -63,7 +63,7 @@ export default {
   },
   methods:{
     getData(){
-      const url = this.$store.state.URL + "/Throw/GetThrowRecord?req=" + Base64.decode(localStorage.getItem("workingStation"));
+      const url = this.$URL + "/Throw/GetThrowRecord?req=" + Base64.decode(localStorage.getItem("workingStation"));
       fetch(url, {
         method: "GET",
         headers: {
@@ -81,7 +81,7 @@ export default {
     },
     withdraw(req)
     {
-      fetch(this.$store.state.URL + "/Throw/Delete?req=" + req, {
+      fetch(this.$URL + "/Throw/Delete?req=" + req, {
         method: "GET",
         headers: {
           accept: "text/plain",

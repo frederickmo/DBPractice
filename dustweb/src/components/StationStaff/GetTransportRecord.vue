@@ -86,7 +86,7 @@ export default {
   methods:{
     getUserInfo() {
       console.log(this.UserInfo.account, this.UserInfo.password);
-      fetch(this.$store.state.URL + "/User/GetInformation/StationStaff?req=" + this.UserInfo.account, {
+      fetch(this.$URL + "/User/GetInformation/StationStaff?req=" + this.UserInfo.account, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
@@ -104,7 +104,7 @@ export default {
     },
     getData(){
       console.log(1,this.UserInfo.plant_name);
-      const url = this.$store.state.URL + "/Transport/StaffGet?req=" + this.UserInfo.plant_name;
+      const url = this.$URL + "/Transport/StaffGet?req=" + this.UserInfo.plant_name;
       fetch(url, {
         method: "GET",
         headers: {
@@ -121,7 +121,7 @@ export default {
       })
     },
     TransportEnd(elm){
-      fetch(this.$store.state.URL + "/Transport/TransportEnd?req=" + elm, {
+      fetch(this.$URL + "/Transport/TransportEnd?req=" + elm, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + Base64.decode(localStorage.getItem("token")),
