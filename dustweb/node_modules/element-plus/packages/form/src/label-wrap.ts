@@ -5,6 +5,8 @@ import { addResizeListener, removeResizeListener, ResizableElement } from '@elem
 
 import type { CSSProperties } from 'vue'
 
+export type Nullable<T> = null | T
+
 export default defineComponent({
   name: 'ElLabelWrap',
   props: {
@@ -64,7 +66,7 @@ export default defineComponent({
         const autoLabelWidth = elForm.autoLabelWidth
         const style = {} as CSSProperties
         if (autoLabelWidth && autoLabelWidth !== 'auto') {
-          const marginWidth = parseInt(autoLabelWidth, 10) - computedWidth.value
+          const marginWidth = Math.max(0, parseInt(autoLabelWidth, 10) - computedWidth.value)
           const marginPositon = elForm.labelPosition === 'left' ? 'marginRight' : 'marginLeft'
           if (marginWidth) {
             style[marginPositon] = marginWidth + 'px'
