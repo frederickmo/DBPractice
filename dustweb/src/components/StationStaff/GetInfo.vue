@@ -97,14 +97,14 @@ export default {
     },
     createAvatarUpload(file) {
       const isJPG = file.type === 'image/jepg';
-      const isLt2M = file.size / 1024 / 1024 < 1;
+      const isLt1M = file.size / 1024 / 1024 < 1;
       if (!isJPG) {
         this.$message.error('上传头像只能是JPG格式');
       }
-      if (!isLt2M) {
+      if (!isLt1M) {
         this.$message.error('上传头像图片大小不能超过1MB')
       }
-      return isJPG && isLt2M;
+      return isJPG && isLt1M;
     }
   }
 }
