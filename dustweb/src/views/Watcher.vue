@@ -40,6 +40,9 @@
 
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
+        <el-button circle id="avatar" @click="choice=1">        
+          <el-avatar shape="circle" fit="cover" src="https://636c-cloud1-6gti323d7294495c-1306017304.tcb.qcloud.la/other_resources/D073A6D3-5297-4F64-9D73-4EB44308FF48_1_105_c.jpeg?sign=bfa532f94c3d03eeb54d1badf91775f8&t=1627453440"></el-avatar>
+        </el-button>
           <span>{{ username }}</span>
         </el-header>
 
@@ -157,5 +160,14 @@ html, body, #app, .el-container {
 
 .el-aside {
   color: #333;
+}
+
+#avatar{
+  width: 40px;
+  height: 40px;
+  padding: 0 0 0 0;
+  position: relative;
+  top: 14px;
+  right: 5px;
 }
 </style>
